@@ -3,43 +3,152 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JUNWOO KIM</title>
+<title>JUNWOO KIM — Backend · IT Systems</title>
 <style>
-  :root{--bg:#0d1117;--card:#161b22;--line:#30363d;--fg:#e6edf3;--mut:#8b949e;--acc:#58a6ff;}
+  :root{
+    --bg:#0b0f17;--bg2:#0f1626;--card:#141b2b;--line:#232c40;
+    --fg:#e8eef7;--mut:#93a1b8;--acc:#5aa2ff;--acc2:#7c5cff;
+  }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,"Segoe UI","Noto Sans KR",sans-serif;background:var(--bg);color:var(--fg);
-       min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;line-height:1.6}
-  .card{max-width:640px;width:100%;background:var(--card);border:1px solid var(--line);
-        border-radius:16px;padding:48px 40px}
-  .avatar{width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,#58a6ff,#1f6feb);
-          display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:700;margin-bottom:24px}
-  h1{font-size:32px;letter-spacing:-.5px}
-  .role{color:var(--acc);font-weight:600;margin-top:6px}
-  p.bio{color:var(--mut);margin-top:18px}
-  .tags{margin-top:24px;display:flex;flex-wrap:wrap;gap:8px}
-  .tag{background:#21262d;border:1px solid var(--line);color:var(--fg);font-size:13px;
-       padding:5px 12px;border-radius:20px}
-  .links{margin-top:32px;display:flex;gap:12px;flex-wrap:wrap}
-  a.btn{text-decoration:none;color:var(--fg);background:#21262d;border:1px solid var(--line);
-        padding:10px 18px;border-radius:8px;font-size:14px;font-weight:600;transition:.15s}
-  a.btn:hover{border-color:var(--acc);color:var(--acc)}
-  footer{margin-top:36px;color:var(--mut);font-size:12px}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,"Segoe UI","Noto Sans KR",sans-serif;background:var(--bg);
+       color:var(--fg);line-height:1.65;overflow-x:hidden}
+  .wrap{max-width:900px;margin:0 auto;padding:0 24px}
+  a{color:inherit}
+
+  /* hero */
+  .hero{position:relative;padding:110px 0 90px;text-align:center;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;z-index:-1;
+    background:radial-gradient(900px 400px at 50% -10%,rgba(124,92,255,.28),transparent 60%),
+               radial-gradient(700px 400px at 80% 10%,rgba(90,162,255,.22),transparent 55%)}
+  .avatar{width:110px;height:110px;border-radius:50%;margin:0 auto 26px;
+    background:linear-gradient(135deg,var(--acc),var(--acc2));display:flex;align-items:center;
+    justify-content:center;font-size:42px;font-weight:800;color:#fff;
+    box-shadow:0 12px 40px rgba(124,92,255,.35);animation:float 4s ease-in-out infinite}
+  @keyframes float{50%{transform:translateY(-10px)}}
+  .hero h1{font-size:46px;letter-spacing:-1px;background:linear-gradient(90deg,#fff,#b9c6dc);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hero .role{margin-top:10px;font-size:18px;font-weight:600;
+    background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;
+    background-clip:text;-webkit-text-fill-color:transparent}
+  .hero p{color:var(--mut);max-width:560px;margin:20px auto 0}
+  .cta{margin-top:30px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{text-decoration:none;padding:11px 22px;border-radius:10px;font-weight:600;font-size:14px;
+    border:1px solid var(--line);background:#1a2234;transition:.18s}
+  .btn:hover{transform:translateY(-2px);border-color:var(--acc)}
+  .btn.primary{background:linear-gradient(135deg,var(--acc),var(--acc2));border:none;color:#fff}
+
+  section{padding:64px 0}
+  .tag-h{font-size:13px;font-weight:700;letter-spacing:2px;color:var(--acc);text-transform:uppercase}
+  h2{font-size:28px;margin:8px 0 28px;letter-spacing:-.5px}
+
+  .skills{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{background:var(--card);border:1px solid var(--line);padding:8px 16px;border-radius:24px;
+    font-size:14px;color:var(--fg);transition:.18s}
+  .chip:hover{border-color:var(--acc);color:var(--acc)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+  .proj{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);
+    border-radius:16px;padding:26px;transition:.2s;position:relative;overflow:hidden}
+  .proj::after{content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,var(--acc),var(--acc2));opacity:0;transition:.2s}
+  .proj:hover{transform:translateY(-6px);border-color:#31405e}
+  .proj:hover::after{opacity:1}
+  .proj .ic{font-size:26px;margin-bottom:12px}
+  .proj h3{font-size:18px;margin-bottom:8px}
+  .proj p{color:var(--mut);font-size:14px}
+  .proj .meta{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+  .proj .meta span{font-size:12px;color:var(--acc);background:rgba(90,162,255,.1);
+    padding:3px 10px;border-radius:12px}
+  .proj a.link{display:inline-block;margin-top:14px;font-size:13px;font-weight:600;color:var(--acc);text-decoration:none}
+
+  footer{text-align:center;padding:50px 0 40px;border-top:1px solid var(--line);color:var(--mut)}
+  footer .fl{display:flex;gap:16px;justify-content:center;margin-bottom:16px}
+  footer a{text-decoration:none;color:var(--fg);font-weight:600;font-size:14px}
+  footer a:hover{color:var(--acc)}
+  footer small{font-size:12px}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:.6s}
+  .reveal.in{opacity:1;transform:none}
 </style>
 </head>
 <body>
-  <main class="card">
-    <div class="avatar">JW</div>
-    <h1>JUNWOO KIM</h1>
-    <div class="role">Backend &middot; IT Systems Engineer</div>
-    <p class="bio">물류 &middot; e-커머스 도메인의 백엔드와 IT 시스템을 다룹니다. 안정적인 데이터 파이프라인과 자동화에 관심이 많습니다.</p>
-    <div class="tags">
-      <span class="tag">Java</span><span class="tag">Backend</span><span class="tag">MES / WMS</span>
-      <span class="tag">Database</span><span class="tag">Automation</span><span class="tag">IT Infra</span>
+  <header class="hero">
+    <div class="wrap">
+      <div class="avatar">JW</div>
+      <h1>JUNWOO KIM</h1>
+      <div class="role">Backend &middot; IT Systems Engineer</div>
+      <p>물류 &middot; e-커머스 도메인의 백엔드와 IT 시스템을 설계하고 운영합니다. 안정적인 데이터 파이프라인과 반복 업무 자동화에 관심이 많습니다.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://github.com/junwo0" target="_blank" rel="noopener">GitHub 방문</a>
+        <a class="btn" href="#projects">프로젝트 보기</a>
+      </div>
     </div>
-    <div class="links">
-      <a class="btn" href="https://github.com/junwo0" target="_blank" rel="noopener">GitHub</a>
+  </header>
+
+  <section class="wrap reveal">
+    <div class="tag-h">About</div>
+    <h2>소개</h2>
+    <p style="color:var(--mut);max-width:680px">
+      제조 실행 시스템(MES)과 창고 관리 시스템(WMS) 등 현장 중심의 IT 시스템을 다뤄왔습니다.
+      데이터가 흐르는 구조를 설계하고, 사람이 반복하던 일을 스크립트와 자동화로 줄이는 것을 즐깁니다.
+      작은 유틸부터 운영 시스템까지, "돌아가게" 만드는 것에서 "잘 돌아가게" 만드는 것으로.
+    </p>
+  </section>
+
+  <section class="wrap reveal">
+    <div class="tag-h">Skills</div>
+    <h2>기술 스택</h2>
+    <div class="skills">
+      <span class="chip">Java</span><span class="chip">JavaScript</span><span class="chip">Python</span>
+      <span class="chip">Backend / API</span><span class="chip">MES</span><span class="chip">WMS</span>
+      <span class="chip">MSSQL</span><span class="chip">Database 설계</span><span class="chip">Automation</span>
+      <span class="chip">IT Infra</span><span class="chip">Git / GitHub</span>
     </div>
-    <footer>&copy; 2026 JUNWOO KIM &middot; Built with GitHub Pages</footer>
-  </main>
+  </section>
+
+  <section class="wrap reveal" id="projects">
+    <div class="tag-h">Portfolio</div>
+    <h2>프로젝트</h2>
+    <div class="grid">
+      <div class="proj">
+        <div class="ic">🏭</div>
+        <h3>제조 · 물류 시스템</h3>
+        <p>MES / WMS 기반의 생산·재고·출고 데이터 흐름 설계 및 운영. 현장 요구를 시스템으로 옮기는 작업.</p>
+        <div class="meta"><span>Java</span><span>MSSQL</span><span>MES/WMS</span></div>
+      </div>
+      <div class="proj">
+        <div class="ic">🤖</div>
+        <h3>생활 자동화 스크립트</h3>
+        <p>주차 할인 자동 등록, 채용 공고 모니터링, 핫딜 감시 등 반복 업무를 없애는 개인 자동화 봇 모음.</p>
+        <div class="meta"><span>Python</span><span>HTTP API</span><span>Scheduler</span></div>
+      </div>
+      <div class="proj">
+        <div class="ic">🌐</div>
+        <h3>netsetman-clone</h3>
+        <p>네트워크 설정 전환 유틸리티 클론 프로젝트. 환경별 IP/네트워크 프로필을 빠르게 전환.</p>
+        <div class="meta"><span>Desktop</span><span>Network</span></div>
+        <a class="link" href="https://github.com/junwo0/netsetman-clone" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+      <div class="proj">
+        <div class="ic">📊</div>
+        <h3>데이터 · 리포팅 도구</h3>
+        <p>업무 데이터를 모아 요약·리포트로 자동 변환하는 내부 도구. 수작업 집계를 대체.</p>
+        <div class="meta"><span>Python</span><span>Data</span><span>Automation</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="fl">
+      <a href="https://github.com/junwo0" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <small>&copy; 2026 JUNWOO KIM &middot; Built with GitHub Pages</small>
+  </footer>
+
+  <script>
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  </script>
 </body>
 </html>
